@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  postgres-composes:
+    container_name: postgres-go
+    image: postgres
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db
+    ports:
+      - "5436:5432"
+    expose:
+      - "5436"
+    volumes:
+      - postgres_go:/var/lib/postgres_go
+
+volumes:
+  postgres_go:
