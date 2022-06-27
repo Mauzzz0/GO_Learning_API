@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
@@ -32,4 +33,20 @@ func (h *Handler) userIdentity(c *gin.Context) {
 
 	c.Set(ctxUserId, userId)
 
+}
+
+func getUserId(c *gin.Context) (int, error) {
+	id, ok := c.Get(ctxUserId)
+	if !ok {
+		newErrorResponse(c, http.StatusInternalServerError, "user id not found")
+		return 0, errors.New("user id not found")
+	}
+
+	idInt, ok := id.(int)
+	if !ok {
+		newErrorResponse(c, http.StatusInternalServerError, "user id is not integer")
+		return 0, errors.New("user id is not integer")
+	}
+
+	return idInt, nil
 }
