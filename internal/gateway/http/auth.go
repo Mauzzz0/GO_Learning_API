@@ -17,9 +17,10 @@ func (h *Handler) signUp(c *gin.Context) {
 	id, err := h.services.Authorization.CreateUser(input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
+	c.JSON(http.StatusOK, map[string]any{
 		"id": id,
 	})
 }
@@ -35,9 +36,10 @@ func (h *Handler) signIn(c *gin.Context) {
 	token, err := h.services.Authorization.GenerateToken(input)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return
 	}
 
-	c.JSON(http.StatusOK, map[string]interface{}{
+	c.JSON(http.StatusOK, map[string]any{
 		"token": token,
 	})
 }
