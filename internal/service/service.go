@@ -1,8 +1,12 @@
 package service
 
-import "learning_api/internal/repository"
+import (
+	"learning_api/internal/entity"
+	"learning_api/internal/repository"
+)
 
 type Authorization interface {
+	CreateUser(user entity.User) (int, error)
 }
 
 type TodoList interface {
@@ -18,5 +22,7 @@ type Service struct {
 }
 
 func NewService(repos *repository.Repository) *Service {
-	return &Service{}
+	return &Service{
+		Authorization: NewAuthService(repos.Authorization),
+	}
 }

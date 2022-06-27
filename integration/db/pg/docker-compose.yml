@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  postgres-composes:
+  postgres-go:
     container_name: postgres-go
     image: postgres
     environment:
